@@ -1,0 +1,56 @@
+{
+  "name": "imgnotes",
+  "version": "1.0.1",
+  "description": "Extension of imgviewer plugin that adds notes and markers to an image that can be zoomed and panned",
+  "keywords": [
+    "jquery-plugin",
+    "ecosystem:jquery",
+    "image",
+    "notes",
+    "annotation"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/waynegm/imgNotes.git"
+  },
+  "homepage": "https://github.com/waynegm/imgNotes",
+  "bugs": {
+    "url": "https://github.com/waynegm/imgNotes/issues"
+  },
+  "main": "src/imgNotes.js",
+  "dependencies": {
+    "hammerjs": "^2.0.8",
+    "imgviewer": "^1.0.0",
+    "jquery": "^1.8 || ^2.0 || ^3.0",
+    "jquery-hammerjs": "^2.0.0",
+    "jquery-mousewheel": "^3.1.13"
+  },
+  "scripts": {
+    "clean": "shx rm -rf dist/*",
+    "lint": "echo 'Current directory:' && cd && echo 'Files in src:' && dir src && jshint src/imgNotes.js",
+    "postlint": "shx cp src/*.js docs/lib && shx cp src/images/* docs/lib/images && shx cp src/*.css docs/lib",
+    "minify:js": "echo '=> minify:js' && uglifyjs src/*.js -o dist/imgNotes.min.js",
+    "minify:css": "echo '=> minify:css' && cleancss -o dist/imgNotes.min.css src/imgNotes.css",
+    "prebuild:js": "npm run lint",
+    "build:js": "npm run minify:js",
+    "build:css": "npm run minify:css && shx mkdir -p dist/images && shx cp src/images/* dist/images",
+    "build": "echo '=> building' && npm run clean && npm run build:css && npm run build:js",
+    "push": "git push",
+    "patch-release": "npm version patch && npm publish",
+    "minor-release": "npm version minor && npm publish",
+    "major-release": "npm version major && npm publish",
+    "watch": "watch 'npm run build' src/",
+    "server": "http-server docs/"
+  },
+  "author": "waynegm",
+  "license": "MIT",
+  "devDependencies": {
+    "clean-css-cli": "^4.0.0",
+    "http-server": "^14.1.1",
+    "jshint": "^2.9.4",
+    "rimraf": "^2.5.4",
+    "shx": "^0.3.3",
+    "uglify-js": "^2.7.5",
+    "watch": "^0.13.0"
+  }
+}
